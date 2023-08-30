@@ -5,6 +5,7 @@ import Auth from "./Auth";
 
 const Home: NextPage = () => {
   const { data: session, status } = useSession();
+
   return (
     <>
       <Auth />
