@@ -10,7 +10,7 @@ const Home: NextPage = () => {
   return (
     <div className="h-screen w-full bg-blue-300">
       <Image src="/logoo.png" width={250} height={250} alt="積み上げいいさ" />
-      {/* <Auth /> */}
+      <Auth />
     </div>
   );
 };
