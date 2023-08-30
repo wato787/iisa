@@ -5,7 +5,7 @@ import Auth from "./Auth";
 import Image from "next/image";
 
 const Home: NextPage = () => {
-  const { status } = useSession();
+  // const { status } = useSession();
 
   return (
     <div className="h-screen w-full bg-blue-300">
