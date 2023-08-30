@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 
 import { useSession } from "next-auth/react";
-import Auth from "./Auth";
+import Auth from "../component/auth";
 import Image from "next/image";
 
 const Home: NextPage = () => {
