@@ -4,7 +4,7 @@ import React from "react";
 const Auth = () => {
   return (
     <div>
-      <button className="" onClick={() => signIn("google")}>
+      <button className="bg-white" onClick={() => signIn("google")}>
         google sign in
       </button>
     </div>

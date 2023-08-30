@@ -2,14 +2,21 @@ import type { NextPage } from "next";
 
 import { useSession } from "next-auth/react";
 import Auth from "./Auth";
+import Image from "next/image";
 
 const Home: NextPage = () => {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
 
   return (
-    <>
-      <Auth />
-    </>
+    <div className="h-screen w-full bg-blue-300">
+      <Image
+        src="/iisaLogo.png"
+        width={250}
+        height={250}
+        alt="積み上げいいさ"
+      />
+      {/* <Auth /> */}
+    </div>
   );
 };
 
