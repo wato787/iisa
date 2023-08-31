@@ -1,18 +1,36 @@
+/* eslint-disable @next/next/no-img-element */
 import type { NextPage } from "next";
 
 import { useSession } from "next-auth/react";
-import Auth from "../component/auth";
-import Image from "next/image";
 
 const Home: NextPage = () => {
   const { status } = useSession();
 
   return (
     <>
-      <div className="flex items-center justify-center">
-        <Image src="/logoo.png" width={250} height={250} alt="積み上げいいさ" />
+      <div className="relative grid grid-cols-2 h-screen items-center justify-center bg-secondary">
+        <div className="absolute -left-1/4 w-full">
+          <video
+            src="/tsumiki.mp4"
+            className="h-full w-full object-cover"
+            autoPlay
+            muted
+            loop
+          />
+        </div>
+        <div className="card glass w-1/3 absolute right-[15%]">
+          <figure>
+            <img src="/logoo.png" alt="積み上げいいさ" />
+          </figure>
+          <div className="card-body">
+            <h2 className="card-title">さあ、積み上げていただきます</h2>
+            <p>Tsumiage te morae masuka?</p>
+            <div className="card-actions justify-end">
+              <button className="btn btn-primary">ログイン</button>
+            </div>
+          </div>
+        </div>
       </div>
-      <Auth />
     </>
   );
 };
