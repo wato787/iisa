@@ -5,7 +5,8 @@ import type { Session } from "next-auth";
 import type { AppType } from "next/app";
 import { trpc } from "../utils/trpc";
 import { Provider as ReduxProvider } from "react-redux";
-import { store } from "../../redux/store";
+import { store } from "../redux/store";
+
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
