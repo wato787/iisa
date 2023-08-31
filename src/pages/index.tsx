@@ -8,10 +8,12 @@ const Home: NextPage = () => {
   const { status } = useSession();
 
   return (
-    <div className="h-screen w-full bg-blue-300">
-      <Image src="/logoo.png" width={250} height={250} alt="積み上げいいさ" />
-      {/* <Auth /> */}
-    </div>
+    <>
+      <div className="flex items-center justify-center">
+        <Image src="/logoo.png" width={250} height={250} alt="積み上げいいさ" />
+      </div>
+      <Auth />
+    </>
   );
 };
 
