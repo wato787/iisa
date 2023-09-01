@@ -1,8 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import type { GetServerSideProps, NextPage } from "next";
-import { getSession, signOut } from "next-auth/react";
+import { getSession, signOut, useSession } from "next-auth/react";
 
 const Home: NextPage = () => {
+  const { data: session } = useSession();
+  console.log(session);
   return (
     <>
       <button

@@ -5,8 +5,8 @@ import React from "react";
 const Signin = () => {
   return (
     <div className="relative grid h-screen grid-cols-2 items-center justify-center bg-secondary">
-      <div className="absolute -left-1/4  h-[900px] w-full">
-        <video className="h-full w-full object-cover" autoPlay muted loop>
+      <div className="absolute -left-1/4  h-[96%] w-full">
+        <video className="h-full w-full" autoPlay muted loop>
           <source src="/movies/tsumiki.mp4" type="video/mp4" />
         </video>
       </div>
@@ -23,7 +23,7 @@ const Signin = () => {
           <div className="card-actions justify-end">
             <button
               onClick={(): Promise<SignInResponse | undefined> =>
-                signIn("google", { callbackUrl: "http://localhost:3000/" })
+                signIn("google", { callbackUrl: "/" })
               }
               className="btn btn-primary"
             >
