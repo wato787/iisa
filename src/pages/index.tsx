@@ -1,15 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-import type { NextPage } from "next";
-import { signOut, useSession } from "next-auth/react";
-import { useRouter } from "next/router";
+import type { GetServerSideProps, NextPage } from "next";
+import { getSession, signOut } from "next-auth/react";
 
 const Home: NextPage = () => {
-  // const router = useRouter();
-  // const { data: session, status } = useSession();
-  // if (status === "loading") return <div>loading...</div>;
-  // // if (status === "unauthenticated") {
-  // //   router.push("/auth/signin");
-  // // }
   return (
     <>
       <button
@@ -24,3 +17,20 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context);
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/auth/signin",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {
+      session,
+    },
+  };
+};
