@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import type { GetServerSideProps, NextPage } from "next";
 import { getSession, useSession } from "next-auth/react";
-import Header from "../component/templates/Header";
+import Monkey from "../component/templates/Monkey";
 import TimeCard from "../component/card/TimeCard";
 
 const Home: NextPage = () => {
@@ -9,7 +9,7 @@ const Home: NextPage = () => {
   return (
     <div className="flex  h-screen items-center  justify-center bg-primary">
       <div className=" absolute left-0 top-0 ">
-        <Header />
+        <Monkey />
       </div>
       <TimeCard />
     </div>
