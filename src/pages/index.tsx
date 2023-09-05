@@ -1,22 +1,17 @@
 /* eslint-disable @next/next/no-img-element */
 import type { GetServerSideProps, NextPage } from "next";
-import { getSession, signOut, useSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import Header from "../component/templates/Header";
 import TimeCard from "../component/card/TimeCard";
 
 const Home: NextPage = () => {
   const { data: session } = useSession();
   return (
-    <div className="h-screen  bg-primary flex flex-col items-center justify-center">
-      <Header />
+    <div className="flex  h-screen items-center  justify-center bg-primary">
+      <div className=" absolute left-0 top-0 ">
+        <Header />
+      </div>
       <TimeCard />
-      <button
-        onClick={() =>
-          signOut({ callbackUrl: "/auth/signin" })
-        }
-      >
-        logout
-      </button>
     </div>
   );
 };
