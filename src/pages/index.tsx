@@ -7,8 +7,8 @@ import TimeCard from "../component/card/TimeCard";
 const Home: NextPage = () => {
   const { data: session } = useSession();
   return (
-    <div className="flex  h-screen items-center  justify-center bg-primary">
-      <div className=" absolute left-0 top-0 ">
+    <div className="relative  flex h-screen  items-center justify-center bg-primary">
+      <div className="absolute left-0 top-0 ">
         <Monkey />
       </div>
       <TimeCard />
