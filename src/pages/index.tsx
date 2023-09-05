@@ -7,7 +7,6 @@ import TimeCard from "../component/card/TimeCard";
 
 const Home: NextPage = () => {
   const { data: session } = useSession();
-  console.log(session);
   return (
     <div className="flex  h-screen flex-col items-center justify-center bg-primary">
       <Header />
