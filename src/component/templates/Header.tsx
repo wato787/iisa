@@ -7,9 +7,16 @@ const Header = () => {
       <ul className="flex">
         <li className="m-10">ホーム</li>
         <li className="m-10">グラフ</li>
-        <button   onClick={() =>
-          signOut({ callbackUrl: "http://localhost:3000/auth/signin" })
-        } className="m-10">ログアウト</button>
+        <button
+          onClick={() =>
+            signOut({
+              callbackUrl: "/auth/signin",
+            })
+          }
+          className="m-10"
+        >
+          ログアウト
+        </button>
       </ul>
     </nav>
   );
