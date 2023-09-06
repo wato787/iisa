@@ -1,58 +1,44 @@
 import Image from "next/image";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import useInterval from "../../hooks/useInterval";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import { setCount } from "../../redux/slice/countSlice";
+import Link from "next/link";
 
 const TimeCard = () => {
-  const now = new Date();
   const [hour, setHour] = useState(0);
   const [min, setMin] = useState(0);
   const [sec, setSec] = useState(0);
-  const [buttonClickTime, setButtonClickTime] = useState<string | null>(null);
-  const [showFinishButton, setShowFinishButton] = useState(false);
-  const [showBreakButton, setShowBreakButton] = useState(false);
-  const [isCounting, setIsCounting] = useState(false); // カウント中かどうかを管理するステート変数
+  const { count } = useSelector((state: RootState) => state.count);
+  const dispatch = useDispatch();
+  console.log(count);
 
-  const handleButtonClick = () => {
-    const clickedTime = new Date();
-    setButtonClickTime(clickedTime.toLocaleTimeString());
+  const [intervalState, intervalControl] = useInterval(
+    () => {
+      dispatch(setCount(count + 1));
+    },
+    1000,
+    false
+  );
 
-    // ボタンを表示する
-    setShowFinishButton(true);
-    setShowBreakButton(true);
+  const handleStart = () => {
+    intervalControl.start();
+  };
 
-    // カウントを始める
-    setIsCounting(true);
+  const handleStop = () => {
+    intervalControl.stop();
+  };
+
+  const shapeTime = (time: number) => {
+    setHour(Math.floor(time / 3600));
+    setMin(Math.floor((time % 3600) / 60));
+    setSec(Math.floor((time % 3600) % 60));
   };
 
   useEffect(() => {
-    if (isCounting) {
-      const interval = setInterval(() => {
-        const now = new Date();
-        setHour(now.getHours());
-        setMin(now.getMinutes());
-        setSec(now.getSeconds());
-      }, 1000);
-
-      return () => {
-        clearInterval(interval);
-      };
-    }
-  }, [isCounting]);
-
-  const handleFinishButtonClick = () => {
-    // カウントを停止する
-    setIsCounting(false);
-
-    setShowFinishButton(false);
-    setShowBreakButton(false);
-  };
-
-  const handleBreakButtonClick = () => {
-    // カウントを停止する
-    setIsCounting(false);
-
-    setShowFinishButton(false);
-    setShowBreakButton(false);
-  };
+    shapeTime(count);
+  }, [count]);
 
   return (
     <div className="card glass flex h-3/4 w-1/3 flex-col items-center justify-center">
@@ -86,7 +72,7 @@ const TimeCard = () => {
           className="card-actions"
           style={{ display: "flex", justifyContent: "center" }}
         >
-          {!isCounting ? (
+          {/* {!isCounting ? (
             <button className="btn btn-primary" onClick={handleButtonClick}>
               どがしゃんぼたん
             </button>
@@ -109,10 +95,17 @@ const TimeCard = () => {
                 </button>
               )}
             </>
-          )}
+          )} */}
+          <div>
+            <p>Count: {count}</p>
+            <p>Interval State: {intervalState}</p>
+            <button onClick={handleStart}>Start</button>
+            <button onClick={handleStop}>Stop</button>
+          </div>
+          <Link href="/graph">dddd/</Link>
         </div>
 
-        {buttonClickTime && <p>ボタンおしたー: {buttonClickTime}</p>}
+        {/* {buttonClickTime && <p>ボタンおしたー: {buttonClickTime}</p>} */}
       </div>
     </div>
   );
