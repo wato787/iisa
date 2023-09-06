@@ -59,3 +59,12 @@ model VerificationToken {
 
     @@unique([identifier, token])
 }
+
+model Time {
+    id        String   @id @default(cuid())
+    userId    String
+    userName  String
+    month  Int
+    breakTime Int?
+    workedTime Int?
+}
