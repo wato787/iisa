@@ -11,7 +11,6 @@ const TimeCard = () => {
   const [sec, setSec] = useState(0);
   const { count } = useSelector((state: RootState) => state.count);
   const dispatch = useDispatch();
-  console.log(count);
 
   const [intervalState, intervalControl] = useInterval(
     () => {
