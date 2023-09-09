@@ -1,5 +1,6 @@
 import { signOut } from "next-auth/react";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const Monkey = () => {
@@ -18,13 +19,13 @@ const Monkey = () => {
 
       <ul
         tabIndex={0}
-        className="menu dropdown-content rounded-box glass z-[1] w-52 cursor-pointer p-2 shadow"
+        className="menu dropdown-content glass rounded-box z-[1] w-52 cursor-pointer p-2 shadow"
       >
         <li>
           <a>ホーム</a>
         </li>
         <li>
-          <a>グラフ</a>
+          <Link href="graph">グラフページ</Link>
         </li>
         <li>
           <button onClick={() => signOut({ callbackUrl: "/auth/signin" })}>
