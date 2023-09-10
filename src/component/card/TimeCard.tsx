@@ -42,7 +42,7 @@ const TimeCard = (): ReactElement => {
 
   const handleStop = () => {
     intervalControl.stop();
-    stopCount({
+    stopCount.mutate({
       id: data.id as string,
       workedTime: count,
     });
