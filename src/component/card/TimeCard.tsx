@@ -25,7 +25,7 @@ const TimeCard = (): ReactElement => {
     false
   );
 
-  const handleStart = useCallback(async () => {
+  const handleStart = useCallback(() => {
     if (!user) return;
     intervalControl.start();
     const req: CreateCount = {
@@ -33,7 +33,7 @@ const TimeCard = (): ReactElement => {
       userName: user.name as string,
       month: new Date().getMonth() + 1,
     };
-    await createCount.mutate(req);
+    createCount.mutate(req);
   }, [user, createCount, intervalControl]);
 
   const handleReStart = useCallback(() => {
