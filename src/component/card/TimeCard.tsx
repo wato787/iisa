@@ -6,7 +6,7 @@ import { RootState } from "../../redux/store";
 import { setCount } from "../../redux/slice/countSlice";
 import { useCount } from "../../hooks/useCount";
 import { useSession } from "next-auth/react";
-import { CreateCount } from "../../schema/count";
+import { CreateCount, StopCount } from "../../schema/count";
 
 const TimeCard = (): ReactElement => {
   const [hour, setHour] = useState(0);
@@ -36,17 +36,18 @@ const TimeCard = (): ReactElement => {
     await createCount.mutate(req);
   }, [user, createCount, intervalControl]);
 
-  const handleReStart = () => {
+  const handleReStart = useCallback(() => {
     intervalControl.start();
-  };
+  }, [intervalControl]);
 
-  const handleStop = () => {
+  const handleStop = useCallback(() => {
     intervalControl.stop();
-    stopCount.mutate({
+    const req: StopCount = {
       id: data.id as string,
       workedTime: count,
-    });
-  };
+    };
+    stopCount.mutate(req);
+  }, [intervalControl, stopCount, data, count]);
   const handleBreak = () => {
     intervalControl.breaked();
   };

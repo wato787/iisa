@@ -15,3 +15,7 @@ export const stopCountSchema = z.object({
 });
 
 export type StopCount = z.infer<typeof stopCountSchema>;
+
+export const getCountSchema = z.object({
+  id: z.string().cuid(),
+});
