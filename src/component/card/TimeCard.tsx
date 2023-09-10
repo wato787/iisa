@@ -29,6 +29,7 @@ const TimeCard = (): ReactElement => {
 
   const handleStart = useCallback(() => {
     if (!user) return;
+    dispatch(setCount(0));
     intervalControl.start();
     const req: CreateCount = {
       userId: user.id,
@@ -36,6 +37,7 @@ const TimeCard = (): ReactElement => {
       month: new Date().getMonth() + 1,
     };
     createCount.mutate(req);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, createCount, intervalControl]);
 
   const handleReStart = useCallback(() => {
