@@ -3,19 +3,21 @@ import React, { ReactElement, useCallback, useEffect, useState } from "react";
 import useInterval from "../../hooks/useInterval";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import { setCount } from "../../redux/slice/countSlice";
+import { setCount, setCountData } from "../../redux/slice/countSlice";
 import { useCount } from "../../hooks/useCount";
 import { useSession } from "next-auth/react";
-import { CreateCount, StopCount } from "../../schema/count";
+import { BreakCount, CreateCount, StopCount } from "../../schema/count";
 
 const TimeCard = (): ReactElement => {
   const [hour, setHour] = useState(0);
   const [min, setMin] = useState(0);
   const [sec, setSec] = useState(0);
   const { count, data } = useSelector((state: RootState) => state.count);
-  const { createCount, stopCount } = useCount();
+  const { createCount, stopCount, getCount, breakCount } = useCount();
   const dispatch = useDispatch();
   const user = useSession().data?.user;
+
+  console.log(count, data);
 
   const [intervalState, intervalControl] = useInterval(
     () => {
@@ -48,9 +50,32 @@ const TimeCard = (): ReactElement => {
     };
     stopCount.mutate(req);
   }, [intervalControl, stopCount, data, count]);
+
   const handleBreak = () => {
     intervalControl.breaked();
+    const req: BreakCount = {
+      id: data.id as string,
+      breakTime: count,
+    };
+    breakCount.mutate(req);
   };
+
+  const getPreviousCount = useCallback(() => {
+    if (!user) return;
+    const res = getCount.useQuery({
+      userId: user.id,
+    });
+
+    console.log(res);
+
+    const result = res.data;
+    if (result?.breakTime) {
+      dispatch(setCount(result.breakTime));
+      dispatch(setCountData(result));
+    }
+  }, [user, getCount, dispatch]);
+
+  getPreviousCount();
 
   const shapeTime = (time: number) => {
     setHour(Math.floor(time / 3600));

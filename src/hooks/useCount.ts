@@ -10,7 +10,15 @@ export const useCount = () => {
     },
   });
 
+  const getCount = trpc.count.getCount;
+
   const stopCount = trpc.count.stopCount.useMutation({
+    onSuccess: (res) => {
+      dispatch(setCountData(res));
+    },
+  });
+
+  const breakCount = trpc.count.breakCount.useMutation({
     onSuccess: (res) => {
       dispatch(setCountData(res));
     },
@@ -18,7 +26,8 @@ export const useCount = () => {
 
   return {
     createCount,
-
+    getCount,
+    breakCount,
     stopCount,
   };
 };

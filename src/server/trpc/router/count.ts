@@ -1,4 +1,5 @@
 import {
+  breakCountSchema,
   createCountSchema,
   getCountSchema,
   stopCountSchema,
@@ -18,10 +19,21 @@ export const countRouter = t.router({
       return createdCount;
     }),
 
+  getCount: authedProcedure
+    .input(getCountSchema)
+    .query(async ({ ctx, input }) => {
+      const count = await ctx.prisma.time.findFirst({
+        where: {
+          userId: input.userId,
+        },
+      });
+      return count;
+    }),
+
   stopCount: authedProcedure
     .input(stopCountSchema)
     .mutation(async ({ ctx, input }) => {
-      const count = await ctx.prisma.time.update({
+      const stoppedCount = await ctx.prisma.time.update({
         where: {
           id: input.id,
         },
@@ -29,6 +41,20 @@ export const countRouter = t.router({
           workedTime: input.workedTime,
         },
       });
-      return count;
+      return stoppedCount;
+    }),
+
+  breakCount: authedProcedure
+    .input(breakCountSchema)
+    .mutation(async ({ ctx, input }) => {
+      const breakedCount = await ctx.prisma.time.update({
+        where: {
+          id: input.id,
+        },
+        data: {
+          breakTime: input.breakTime,
+        },
+      });
+      return breakedCount;
     }),
 });

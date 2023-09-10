@@ -17,5 +17,14 @@ export const stopCountSchema = z.object({
 export type StopCount = z.infer<typeof stopCountSchema>;
 
 export const getCountSchema = z.object({
-  id: z.string().cuid(),
+  userId: z.string(),
 });
+
+export type GetCount = z.infer<typeof getCountSchema>;
+
+export const breakCountSchema = z.object({
+  id: z.string().cuid(),
+  breakTime: z.number(),
+});
+
+export type BreakCount = z.infer<typeof breakCountSchema>;
